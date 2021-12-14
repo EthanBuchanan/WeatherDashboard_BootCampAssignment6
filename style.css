@@ -1,0 +1,69 @@
+:root {
+    --spacing: 15px;
+}
+
+header {
+    background-color: blue;
+    text-align: center;
+    color: white;
+    font-size: 28px;
+    padding: 15px 0px 25px 0px;
+}
+
+nav {
+    padding: var(--spacing);
+    margin-left: 0px;
+}
+
+nav * {
+    margin-left: var(--spacing);
+    width: 100%;
+    margin-bottom: var(--spacing);
+}
+
+.my-button {
+    color: white;
+    border-radius: 4px;
+}
+
+.search-button {
+    background-color:deepskyblue ;   
+}
+
+.history-button {
+    background-color: gray;
+
+}
+
+content {
+    padding: var(--spacing);
+    
+}
+
+.current-weather-data {
+    margin-right: var(--spacing);
+    margin-bottom: var(--spacing);
+    border: black solid 2px;
+    border-radius: 2px;
+  
+    padding: 5px 5px 20px 8px;
+    
+    
+}
+
+.five-day-forecast {
+    justify-content: space-between;
+    margin-top: var(--spacing);
+    margin-right: var(--spacing);
+    margin-left: 0px;
+}
+
+.day-forecast {
+    background-color: darkblue;
+    color: white;
+
+}
+
+.day-forecast span {
+    font-weight: bold;
+}
