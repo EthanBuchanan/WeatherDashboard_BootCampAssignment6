@@ -26,6 +26,10 @@ nav * {
     border-radius: 4px;
 }
 
+form {
+    margin: 0px;
+}
+
 .search-button {
     background-color:deepskyblue ;   
 }
