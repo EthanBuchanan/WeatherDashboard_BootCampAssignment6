@@ -35,19 +35,16 @@ function searchCityName(name)
     
     
     var urlRequest1 = 'https://geocode.xyz/' + name +'?json=1' ;
-    console.log(name)
+    
     fetch(urlRequest1)
     .then(function (response) {
         
         return response.json();
     })
     .then(function (data){
-        console.log(data);
-
 
         var urlRequest2 = "https://api.openweathermap.org/data/2.5/onecall?lat=" + data.latt +"&lon="  + data.longt + "&appid="+openWeatherAPIKey + "&units=imperial";
 
-        console.log(urlRequest2);
 
         fetch (urlRequest2)
         .then (function (response){
@@ -60,7 +57,6 @@ function searchCityName(name)
 
             // setting Current Weather Data Icon
             var iconLink = "https://openweathermap.org/img/wn/" + Data.current.weather[0].icon + ".png";
-            console.log(iconLink);
             document.querySelector("#CWD-icon").setAttribute("src",iconLink);
 
             // setting Current Weather Data temperature 
@@ -127,7 +123,6 @@ function searchCityName(name)
                 fiveDayForecast.appendChild(newEL);
             }
             
-            console.log(Data);
         })
     })
 }
