@@ -71,3 +71,7 @@ content {
 .day-forecast span {
     font-weight: bold;
 }
+
+.day-forecast img {
+    width: 3em;
+}
