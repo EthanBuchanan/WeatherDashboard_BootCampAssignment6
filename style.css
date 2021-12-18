@@ -75,3 +75,42 @@ content {
 .day-forecast img {
     width: 3em;
 }
+
+#searchHistory {
+    margin-left: 0px;
+}
+
+.UV-low {
+    background-color: green;
+    border-radius: 10px;
+    padding: 2px 8px;
+    color: white;
+}
+
+.UV-med {
+    background-color: yellow;
+    border-radius: 10px;
+    padding: 2px 8px;
+    color: black;
+}
+
+.UV-high {
+    background-color: orange;
+    border-radius: 10px;
+    padding: 2px 8px;
+    color: black;
+}
+
+.UV-very-high {
+    background-color: red;
+    border-radius: 10px;
+    padding: 2px 8px;
+    color: white;
+}
+
+.UV-danger {
+    background-color: purple;
+    border-radius: 10px;
+    padding: 2px 8px;
+    color: white;
+}

@@ -1,15 +1,41 @@
 
 var openWeatherAPIKey = "d3c34b7336549ad0c93d9f257bcf99d9";
 
-
-document.addEventListener("submit",function (event)
+function renderSearchHistory()
 {
-    event.preventDefault();
+    var searched = JSON.parse(localStorage.getItem("previouslySearched"));
 
-    var searchEl = document.querySelector("input");
+    if (searched == null) return;
+
+    var searchHistoryEL = document.querySelector("#searchHistory");
+    searchHistoryEL.innerHTML = "";
+
+    for (var i = 0; i < searched.length; i++)
+    {
+
+        var newEL = document.createElement("button");
+        newEL.setAttribute("class","history-button my-button");
+        newEL.textContent = searched[i];
+
+        
+
+        newEL.addEventListener("click", function (event) {
+            
+            event.preventDefault();
+            searchCityName(event.target.textContent);
+        })
+
+        searchHistoryEL.appendChild(newEL);
+    }
+}
+
+function searchCityName(name)
+
+{
     
-    var urlRequest1 = 'https://geocode.xyz/' + searchEl.value +'?json=1' ;
-    console.log(urlRequest1)
+    
+    var urlRequest1 = 'https://geocode.xyz/' + name +'?json=1' ;
+    console.log(name)
     fetch(urlRequest1)
     .then(function (response) {
         
@@ -30,7 +56,7 @@ document.addEventListener("submit",function (event)
         .then (function (Data) {
 
             // setting Current Weather Data city name 
-            document.querySelector("#CWD-city-name").textContent = document.querySelector("input").value;
+            document.querySelector("#CWD-city-name").textContent = name + " (" + moment().format("MM/DD/YYYY")+")";
 
             // setting Current Weather Data Icon
             var iconLink = "https://openweathermap.org/img/wn/" + Data.current.weather[0].icon + ".png";
@@ -49,11 +75,27 @@ document.addEventListener("submit",function (event)
             // setting Current Weather Data UV index
             document.querySelector("#CWD-UV-index").textContent = Data.current.uvi ;
 
+            var UV_dangerRating;
+            var uvi = Data.current.uvi;
+
+            if (uvi < 2)
+                UV_dangerRating = "UV-low";
+            else if (uvi < 6)
+                UV_dangerRating = "UV-med";
+            else if (uvi < 8)
+                UV_dangerRating = "UV-high";
+            else if (uvi < 11)
+                UV_dangerRating = "UV-very-high";
+            else
+                UV_dangerRating = "UV-danger";
+
+            document.querySelector("#CWD-UV-index").setAttribute("class",UV_dangerRating);
+
 
             var fiveDayForecast = document.querySelector(".five-day-forecast");
             fiveDayForecast.innerHTML = "";
 
-            for (var i = 0; i < 5; i++)
+            for (var i = 1; i < 6; i++)
             {
 
 
@@ -61,7 +103,7 @@ document.addEventListener("submit",function (event)
                     <span>${moment().add(i,"days").format("MM/DD/YYYY")}</span> 
 
                     <img src="${"https://openweathermap.org/img/wn/" + Data.daily[i].weather[0].icon + ".png"}">
-                    
+
                     <p>
                         Temp:
                         <span id="day-forecast-temperature">${Data.daily[i].temp.day}</span>
@@ -88,4 +130,27 @@ document.addEventListener("submit",function (event)
             console.log(Data);
         })
     })
+}
+
+renderSearchHistory();
+
+document.addEventListener("submit",function (event)
+{
+    event.preventDefault();
+
+    var searchEl = document.querySelector("input");
+
+    if (searchEl.value == "") return;
+
+    
+    var searched = JSON.parse(localStorage.getItem("previouslySearched"));
+    if (searched == null)
+        searched = [];
+
+    searched.push(searchEl.value);
+
+    localStorage.setItem("previouslySearched",JSON.stringify(searched));
+    renderSearchHistory();
+
+    searchCityName(searchEl.value);
 })
